@@ -15,8 +15,8 @@ const Header = () => {
 	const [isOpen, setIsOpen] = useState(false);
 
 	const languages = [
-		{ code: 'uk', label: 'Українська', flag: '🇺🇦' },
-		{ code: 'ru', label: 'Русский', flag: '🇷🇺' },
+		{ code: 'uk', label: 'UA', flag: '🇺🇦' },
+		{ code: 'ru', label: 'RU', flag: '🇷🇺' },
 	];
 
 	const menuItems = [
