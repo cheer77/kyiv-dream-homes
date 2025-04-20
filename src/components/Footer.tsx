@@ -1,5 +1,5 @@
 
-import { MapPin, Mail, Phone } from "lucide-react";
+import { MapPin, Mail, Phone, HomeIcon } from "lucide-react";
 import { useLanguage } from "../context/LanguageContext";
 
 const Footer = () => {
@@ -8,9 +8,14 @@ const Footer = () => {
   return (
     <footer className="bg-gray-900 text-white py-12">
       <div className="container mx-auto px-4">
+        <div className="flex items-center justify-center mb-8">
+          <HomeIcon className="w-10 h-10 mr-3 text-blue-400" />
+          <h3 className="text-3xl font-bold">Kyiv Homes</h3>
+        </div>
+        
         <div className="grid md:grid-cols-3 gap-8">
           <div>
-            <h3 className="text-2xl font-bold mb-4">Kyiv Homes</h3>
+            <h4 className="text-xl font-semibold mb-4">{t("footer.about")}</h4>
             <p className="text-gray-400">
               {t("footer.description")}
             </p>
@@ -52,4 +57,3 @@ const Footer = () => {
 };
 
 export default Footer;
-
