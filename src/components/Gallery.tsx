@@ -36,23 +36,27 @@ const Gallery = () => {
           {t("gallery.title")}
         </h2>
         
-        <Carousel className="w-full max-w-4xl mx-auto">
-          <CarouselContent>
-            {apartments.map((apartment) => (
-              <CarouselItem key={apartment.id}>
-                <div className="p-1">
-                  <img
-                    src={apartment.image}
-                    alt={apartment.alt}
-                    className="w-full h-[600px] object-cover rounded-lg"
-                  />
-                </div>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-          <CarouselPrevious />
-          <CarouselNext />
-        </Carousel>
+        <div className="relative w-full max-w-4xl mx-auto">
+          <Carousel className="w-full">
+            <CarouselContent>
+              {apartments.map((apartment) => (
+                <CarouselItem key={apartment.id}>
+                  <div className="p-1">
+                    <img
+                      src={apartment.image}
+                      alt={apartment.alt}
+                      className="w-full h-[600px] object-cover rounded-lg"
+                    />
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <div className="absolute inset-0 flex items-center justify-between pointer-events-none px-4">
+              <CarouselPrevious className="relative left-0 pointer-events-auto" />
+              <CarouselNext className="relative right-0 pointer-events-auto" />
+            </div>
+          </Carousel>
+        </div>
       </div>
     </section>
   );

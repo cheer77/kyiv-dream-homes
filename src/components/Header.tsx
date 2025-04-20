@@ -34,6 +34,12 @@ const Header = () => {
 
   const handleMenuClick = (href: string) => {
     setIsOpen(false);
+    // Fix for handling the home href
+    if (href === "#") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
+    
     const element = document.querySelector(href);
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
@@ -111,7 +117,7 @@ const Header = () => {
                     {languages.map((lang) => (
                       <SelectItem key={lang.code} value={lang.code}>
                         <span className="flex items-center">
-                          {lang.flag}&nbsp;{lang.lang}
+                          {lang.flag}&nbsp;{lang.label}
                         </span>
                       </SelectItem>
                     ))}
