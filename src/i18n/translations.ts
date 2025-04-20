@@ -1,4 +1,3 @@
-
 export const translations = {
   uk: {
     nav: {
@@ -27,6 +26,17 @@ export const translations = {
       message: "Повідомлення",
       submit: "Надіслати",
     },
+    gallery: {
+      title: "Наші квартири",
+    },
+    footer: {
+      description: "Ваш надійний партнер у пошуку ідеального житла в Києві",
+      contact: "Контактна інформація",
+      hours: "Години роботи",
+      workdays: "Пн-Пт",
+      weekend: "Сб-Нд",
+      rights: "Всі права захищені",
+    }
   },
   ru: {
     nav: {
@@ -55,5 +65,16 @@ export const translations = {
       message: "Сообщение",
       submit: "Отправить",
     },
-  },
+    gallery: {
+      title: "Наши квартиры",
+    },
+    footer: {
+      description: "Ваш надежный партнер в поиске идеального жилья в Киеве",
+      contact: "Контактная информация",
+      hours: "Часы работы",
+      workdays: "Пн-Пт",
+      weekend: "Сб-Вс",
+      rights: "Все права защищены",
+    }
+  }
 };
