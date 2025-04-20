@@ -1,5 +1,6 @@
+
 import { useLanguage } from "../context/LanguageContext";
-import { HomeIcon } from "lucide-react";
+import { HomeIcon, Menu } from "lucide-react";
 import {
   Select,
   SelectContent,
@@ -7,14 +8,37 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerTrigger,
+} from "@/components/ui/drawer";
+import { useState } from "react";
 
 const Header = () => {
   const { language, setLanguage, t } = useLanguage();
+  const [isOpen, setIsOpen] = useState(false);
 
   const languages = [
     { code: "uk", label: "Українська", flag: "🇺🇦" },
     { code: "ru", label: "Русский", flag: "🇷🇺" },
   ];
+
+  const menuItems = [
+    { href: "#", label: t("nav.home") },
+    { href: "#about", label: t("nav.about") },
+    { href: "#apartments", label: t("nav.apartments") },
+    { href: "#contact", label: t("nav.contact") },
+  ];
+
+  const handleMenuClick = (href: string) => {
+    setIsOpen(false);
+    const element = document.querySelector(href);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   return (
     <header className="fixed w-full bg-white shadow-md z-50">
@@ -25,39 +49,78 @@ const Header = () => {
         </div>
         
         <nav className="hidden md:flex space-x-6">
-          <a href="#" className="hover:text-blue-600 transition-colors">
-            {t("nav.home")}
-          </a>
-          <a href="#about" className="hover:text-blue-600 transition-colors">
-            {t("nav.about")}
-          </a>
-          <a href="#apartments" className="hover:text-blue-600 transition-colors">
-            {t("nav.apartments")}
-          </a>
-          <a href="#contact" className="hover:text-blue-600 transition-colors">
-            {t("nav.contact")}
-          </a>
+          {menuItems.map((item) => (
+            <a
+              key={item.href}
+              href={item.href}
+              className="hover:text-blue-600 transition-colors"
+            >
+              {item.label}
+            </a>
+          ))}
+          <Select value={language} onValueChange={setLanguage}>
+            <SelectTrigger className="w-[140px]">
+              <SelectValue>
+                <span className="flex items-center">
+                  {languages.find(lang => lang.code === language)?.flag}&nbsp;
+                  {languages.find(lang => lang.code === language)?.label}
+                </span>
+              </SelectValue>
+            </SelectTrigger>
+            <SelectContent>
+              {languages.map((lang) => (
+                <SelectItem key={lang.code} value={lang.code}>
+                  <span className="flex items-center">
+                    {lang.flag}&nbsp;{lang.label}
+                  </span>
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </nav>
 
-        <Select value={language} onValueChange={setLanguage}>
-          <SelectTrigger className="w-[140px]">
-            <SelectValue>
-              <span className="flex items-center">
-                {languages.find(lang => lang.code === language)?.flag}&nbsp;
-                {languages.find(lang => lang.code === language)?.label}
-              </span>
-            </SelectValue>
-          </SelectTrigger>
-          <SelectContent>
-            {languages.map((lang) => (
-              <SelectItem key={lang.code} value={lang.code}>
-                <span className="flex items-center">
-                  {lang.flag}&nbsp;{lang.label}
-                </span>
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+        <Drawer open={isOpen} onOpenChange={setIsOpen}>
+          <DrawerTrigger asChild className="md:hidden">
+            <button className="p-2">
+              <Menu className="w-6 h-6" />
+            </button>
+          </DrawerTrigger>
+          <DrawerContent>
+            <div className="p-4 space-y-4">
+              {menuItems.map((item) => (
+                <DrawerClose asChild key={item.href}>
+                  <button
+                    onClick={() => handleMenuClick(item.href)}
+                    className="w-full text-left py-2 hover:text-blue-600 transition-colors"
+                  >
+                    {item.label}
+                  </button>
+                </DrawerClose>
+              ))}
+              <div className="pt-4 border-t">
+                <Select value={language} onValueChange={setLanguage}>
+                  <SelectTrigger className="w-full">
+                    <SelectValue>
+                      <span className="flex items-center">
+                        {languages.find(lang => lang.code === language)?.flag}&nbsp;
+                        {languages.find(lang => lang.code === language)?.label}
+                      </span>
+                    </SelectValue>
+                  </SelectTrigger>
+                  <SelectContent>
+                    {languages.map((lang) => (
+                      <SelectItem key={lang.code} value={lang.code}>
+                        <span className="flex items-center">
+                          {lang.flag}&nbsp;{lang.lang}
+                        </span>
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+          </DrawerContent>
+        </Drawer>
       </div>
     </header>
   );
