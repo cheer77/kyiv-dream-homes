@@ -1,15 +1,39 @@
 
 import { useLanguage } from "../context/LanguageContext";
 import { MapPin, Home, BadgeDollarSign, PhoneCall } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { useState } from "react";
 
 const Features = () => {
   const { t } = useLanguage();
+  const [selectedFeature, setSelectedFeature] = useState<number | null>(null);
 
   const features = [
-    { icon: Home, title: t("features.quality") },
-    { icon: MapPin, title: t("features.location") },
-    { icon: BadgeDollarSign, title: t("features.price") },
-    { icon: PhoneCall, title: t("features.support") },
+    {
+      icon: Home,
+      title: t("features.quality"),
+      description: t("features.qualityDesc"),
+    },
+    {
+      icon: MapPin,
+      title: t("features.location"),
+      description: t("features.locationDesc"),
+    },
+    {
+      icon: BadgeDollarSign,
+      title: t("features.price"),
+      description: t("features.priceDesc"),
+    },
+    {
+      icon: PhoneCall,
+      title: t("features.support"),
+      description: t("features.supportDesc"),
+    },
   ];
 
   return (
@@ -23,13 +47,34 @@ const Features = () => {
           {features.map((feature, index) => (
             <div
               key={index}
-              className="text-center p-6 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow"
+              onClick={() => setSelectedFeature(index)}
+              className="text-center p-6 bg-white rounded-lg shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer hover:scale-105"
             >
               <feature.icon className="w-12 h-12 mx-auto mb-4 text-blue-600" />
               <h3 className="text-xl font-semibold">{feature.title}</h3>
             </div>
           ))}
         </div>
+
+        <Dialog open={selectedFeature !== null} onOpenChange={() => setSelectedFeature(null)}>
+          {selectedFeature !== null && (
+            <DialogContent className="sm:max-w-[425px]">
+              <DialogHeader>
+                <div className="flex items-center justify-center mb-4">
+                  {features[selectedFeature].icon && (
+                    <features[selectedFeature].icon className="w-16 h-16 text-blue-600" />
+                  )}
+                </div>
+                <DialogTitle className="text-center text-2xl mb-4">
+                  {features[selectedFeature].title}
+                </DialogTitle>
+              </DialogHeader>
+              <div className="text-center text-gray-600">
+                {features[selectedFeature].description}
+              </div>
+            </DialogContent>
+          )}
+        </Dialog>
       </div>
     </section>
   );
