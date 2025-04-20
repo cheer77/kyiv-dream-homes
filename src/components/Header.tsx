@@ -1,9 +1,20 @@
-
 import { useLanguage } from "../context/LanguageContext";
 import { HomeIcon } from "lucide-react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const Header = () => {
   const { language, setLanguage, t } = useLanguage();
+
+  const languages = [
+    { code: "uk", label: "Українська", flag: "🇺🇦" },
+    { code: "ru", label: "Русский", flag: "🇷🇺" },
+  ];
 
   return (
     <header className="fixed w-full bg-white shadow-md z-50">
@@ -28,24 +39,25 @@ const Header = () => {
           </a>
         </nav>
 
-        <div className="flex space-x-4">
-          <button
-            onClick={() => setLanguage("uk")}
-            className={`px-3 py-1 rounded ${
-              language === "uk" ? "bg-blue-600 text-white" : "bg-gray-200"
-            }`}
-          >
-            UA
-          </button>
-          <button
-            onClick={() => setLanguage("ru")}
-            className={`px-3 py-1 rounded ${
-              language === "ru" ? "bg-blue-600 text-white" : "bg-gray-200"
-            }`}
-          >
-            RU
-          </button>
-        </div>
+        <Select value={language} onValueChange={setLanguage}>
+          <SelectTrigger className="w-[140px]">
+            <SelectValue>
+              <span className="flex items-center">
+                {languages.find(lang => lang.code === language)?.flag}&nbsp;
+                {languages.find(lang => lang.code === language)?.label}
+              </span>
+            </SelectValue>
+          </SelectTrigger>
+          <SelectContent>
+            {languages.map((lang) => (
+              <SelectItem key={lang.code} value={lang.code}>
+                <span className="flex items-center">
+                  {lang.flag}&nbsp;{lang.label}
+                </span>
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
       </div>
     </header>
   );
