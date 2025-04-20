@@ -15,10 +15,13 @@ const countryCodes = [
 ];
 
 export const PhoneInput = ({ value, onChange, error }: PhoneInputProps) => {
-  const [countryCode, number] = value.split(" ");
+  // Split the value into country code and number parts
+  const [countryCode, number = ""] = value.includes(" ") 
+    ? value.split(" ", 2) 
+    : ["+380", value];
 
   const handleCountryChange = (newCode: string) => {
-    onChange(`${newCode} ${number || ""}`);
+    onChange(`${newCode} ${number}`);
   };
 
   const handleNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -50,7 +53,7 @@ export const PhoneInput = ({ value, onChange, error }: PhoneInputProps) => {
       </Select>
       <Input
         type="tel"
-        value={number || ""}
+        value={number}
         onChange={handleNumberChange}
         className={error ? "border-red-500" : ""}
         placeholder="123-456-789"

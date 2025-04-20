@@ -4,9 +4,11 @@ import { useState } from "react";
 import { PhoneInput } from "./PhoneInput";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
+import { useToast } from "@/hooks/use-toast";
 
 const Contact = () => {
   const { t } = useLanguage();
+  const { toast } = useToast();
   const [formData, setFormData] = useState({
     name: "",
     phone: "+380 ",
@@ -24,11 +26,12 @@ const Contact = () => {
       newErrors.name = "Name must be at least 2 characters";
     }
 
-    if (!formData.phone.trim()) {
+    // Improved phone validation
+    if (!formData.phone || formData.phone.trim() === "+380 ") {
       newErrors.phone = "Phone is required";
     } else {
       const phoneNumber = formData.phone.split(" ")[1];
-      if (!phoneNumber || phoneNumber.length < 9) {
+      if (!phoneNumber || phoneNumber.length < 5) { // More reasonable minimum length
         newErrors.phone = "Invalid phone number";
       }
     }
@@ -48,7 +51,17 @@ const Contact = () => {
     e.preventDefault();
     if (validateForm()) {
       console.log("Form submitted:", formData);
-      // Handle form submission
+      toast({
+        title: "Form Submitted",
+        description: "Thank you for your message!",
+      });
+      // Reset form after successful submission
+      setFormData({
+        name: "",
+        phone: "+380 ",
+        email: "",
+        message: "",
+      });
     }
   };
 
