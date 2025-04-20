@@ -61,8 +61,13 @@ const Features = () => {
             <DialogContent className="sm:max-w-[425px]">
               <DialogHeader>
                 <div className="flex items-center justify-center mb-4">
-                  {features[selectedFeature].icon && (
-                    <features[selectedFeature].icon className="w-16 h-16 text-blue-600" />
+                  {selectedFeature !== null && (
+                    <div className="text-blue-600">
+                      {(() => {
+                        const FeatureIcon = features[selectedFeature].icon;
+                        return <FeatureIcon className="w-16 h-16" />;
+                      })()}
+                    </div>
                   )}
                 </div>
                 <DialogTitle className="text-center text-2xl mb-4">
