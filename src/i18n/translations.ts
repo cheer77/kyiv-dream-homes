@@ -36,6 +36,14 @@ export const translations = {
       workdays: "Пн-Пт",
       weekend: "Сб-Нд",
       rights: "Всі права захищені",
+    },
+    calculator: {
+      title: "Розрахувати вартість квартири",
+      description: "Введіть площу квартири та вартість за квадратний метр, щоб дізнатися загальну вартість",
+      squareMeters: "Площа (м²)",
+      pricePerMeter: "Ціна за м²",
+      calculate: "Розрахувати вартість",
+      totalPrice: "Загальна вартість"
     }
   },
   ru: {
@@ -75,6 +83,14 @@ export const translations = {
       workdays: "Пн-Пт",
       weekend: "Сб-Вс",
       rights: "Все права защищены",
+    },
+    calculator: {
+      title: "Рассчитать стоимость квартиры",
+      description: "Введите площадь квартиры и стоимость за квадратный метр, чтобы узнать общую стоимость",
+      squareMeters: "Площадь (м²)",
+      pricePerMeter: "Це��а за м²",
+      calculate: "Рассчитать стоимость",
+      totalPrice: "Общая стоимость"
     }
   }
 };
